@@ -1,0 +1,17 @@
+[
+  {
+    "question": "Which data structure uses FIFO?",
+    "options": ["Stack", "Queue", "Tree", "Graph"],
+    "answer": "Queue"
+  },
+  {
+    "question": "Which keyword is used to inherit a class in Java?",
+    "options": ["this", "super", "extends", "implements"],
+    "answer": "extends"
+  },
+  {
+    "question": "Which collection does NOT allow duplicates?",
+    "options": ["List", "Set", "Map", "Queue"],
+    "answer": "Set"
+  }
+]

@@ -1,11 +1,35 @@
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-     public static void main(String[] args) {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        UserService userService = new UserService();
+
+        System.out.println("===== LOGIN REQUIRED =====");
+
+        boolean loggedIn = false;
+
+        // Loop until login success
+        while (!loggedIn) {
+            System.out.print("Enter Username: ");
+            String username = sc.nextLine();
+
+            System.out.print("Enter Password: ");
+            String password = sc.nextLine();
+
+            if (userService.validateLogin(username, password)) {
+                System.out.println("\nLogin Successful! Welcome, " + username + "!");
+                loggedIn = true;
+            } else {
+                System.out.println("\nInvalid username or password. Try again.\n");
+            }
+        }
+
+        // AFTER LOGIN → START QUIZ
+        System.out.println("\n===== STARTING QUIZ =====");
 
         QuestionService service = new QuestionService();
-
         List<Question> questions = service.loadQuestions();
 
         if (questions == null) {
@@ -13,29 +37,45 @@ public class Main {
             return;
         }
 
-        int score;
-         try (Scanner sc = new Scanner(System.in)) {
-             score = 0;
-             for (Question q : questions) {
-                 System.out.println("\n" + q.getQuestion());
-                 String[] opts = q.getOptions();
-                 
-                 for (int i = 0; i < opts.length; i++) {
-                     System.out.println((i + 1) + ". " + opts[i]);
-                 }
-                 
-                 System.out.print("Your answer: ");
-                 int choice = sc.nextInt();
-                 
-                 // validate input
-                 if (choice >= 1 && choice <= opts.length) {
-                     if (opts[choice - 1].equalsIgnoreCase(q.getAnswer())) {
-                         score++;
-                     }
-                 }
-             }}
+        int score = 0;
+        Map<Question, String> userAnswers = new LinkedHashMap<>();
 
-        System.out.println("\nQuiz Completed!");
+        for (Question q : questions) {
+            System.out.println("\n" + q.getQuestion());
+            String[] opts = q.getOptions();
+
+            for (int i = 0; i < opts.length; i++) {
+                System.out.println((i + 1) + ". " + opts[i]);
+            }
+
+            System.out.print("Your answer: ");
+            int choice = sc.nextInt();
+
+            String userAns = (choice >= 1 && choice <= opts.length) ? opts[choice - 1] : "Invalid";
+            userAnswers.put(q, userAns);
+
+            if (userAns.equalsIgnoreCase(q.getAnswer())) {
+                score++;
+            }
+        }
+
+        System.out.println("\n===== QUIZ COMPLETED =====");
         System.out.println("Your Score: " + score + "/" + questions.size());
+
+        System.out.println("\n===== REVIEW =====");
+        for (Question q : questions) {
+            String userAns = userAnswers.get(q);
+            String correct = q.getAnswer();
+
+            System.out.println("\nQ: " + q.getQuestion());
+            System.out.println("Your Answer: " + userAns);
+
+            if (userAns.equalsIgnoreCase(correct)) {
+                System.out.println("Result: ✔ Correct");
+            } else {
+                System.out.println("Correct Answer: " + correct);
+                System.out.println("Result: ✘ Wrong");
+            }
+        }
     }
 }

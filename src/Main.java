@@ -6,8 +6,44 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         UserService userService = new UserService();
 
-        System.out.println("===== LOGIN REQUIRED =====");
+        while(true){
+            System.out.println("\n--- ONLINE QUIZ SYSTEM ---");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
 
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if(choice == 1){
+                break;
+            }
+            else if(choice==2){
+                System.out.println("Enter new Username:");
+                String newUser = sc.nextLine();
+
+                System.out.println("Enter password:");
+                String newPassword = sc.nextLine();
+
+                boolean success = userService.registerUser(newUser, newPassword);
+
+                if(success){
+                    System.out.println("Registration Successful! You can login now");
+                }
+                else{
+                    System.out.println("Username already taken. Try another one");
+                }
+            }
+            else if (choice == 3) {
+                System.out.println("Goodbye!");
+                return;
+            }
+            else {
+                System.out.println("Invalid choice. Try again.");
+            }
+
+        }
         boolean loggedIn = false;
 
         // Loop until login success
@@ -71,10 +107,10 @@ public class Main {
             System.out.println("Your Answer: " + userAns);
 
             if (userAns.equalsIgnoreCase(correct)) {
-                System.out.println("Result: ✔ Correct");
+                System.out.println("Result: Correct");
             } else {
                 System.out.println("Correct Answer: " + correct);
-                System.out.println("Result: ✘ Wrong");
+                System.out.println("Result: Wrong");
             }
         }
     }

@@ -1,3 +1,5 @@
+package com.quizapp.model;
+
 public class Users {
     @SuppressWarnings("FieldMayBeFinal")
     private String username;

@@ -1,3 +1,6 @@
+package com.quizapp.service;
+
+import com.quizapp.model.Users;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +25,7 @@ public class UserService {
     private List<Users> loadUsers() {
         try {
             Gson gson = new Gson();
-            FileReader reader = new FileReader("data/users.json");
+            FileReader reader = new FileReader("src/com/quizapp/data/users.json");
 
             List<Users> list = gson.fromJson(reader, new TypeToken<List<Users>>() {}.getType());
 

@@ -1,3 +1,7 @@
+package com.quizapp.main;
+
+import com.quizapp.model.*;
+import com.quizapp.service.*;
 import java.util.*;
 
 public class Main {
@@ -5,7 +9,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         UserService userService = new UserService();
-
+        
         while(true){
             System.out.println("\n--- ONLINE QUIZ SYSTEM ---");
             System.out.println("1. Login");

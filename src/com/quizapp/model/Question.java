@@ -1,3 +1,5 @@
+package com.quizapp.model;
+
 public class Question {
     
     private String question;
